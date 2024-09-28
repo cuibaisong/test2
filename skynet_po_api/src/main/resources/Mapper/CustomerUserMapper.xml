@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skynet.skynet_po_api.job.dao.CustomerUserMapper">
+
+    <resultMap type="com.skynet.skynet_po_api.job.model.CustomerUser" id="CustomerUserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="customerId" column="customer_id" jdbcType="INTEGER"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="isDel" column="is_del" jdbcType="INTEGER"/>
+        <result property="loginIp" column="login_ip" jdbcType="VARCHAR"/>
+        <result property="loginTime" column="login_time" jdbcType="TIMESTAMP"/>
+        <result property="cTime" column="c_time" jdbcType="TIMESTAMP"/>
+        <result property="createrId" column="creater_id" jdbcType="INTEGER"/>
+        <result property="lastUpdTime" column="last_upd_time" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdUser" column="last_upd_user" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into twdb.customer_user(customer_idnick_nametypeaccountpwdemailphonegenderstatusis_dellogin_iplogin_timec_timecreaterlast_upd_timelast_upd_userremark)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.customerId}#{entity.nickName}#{entity.type}#{entity.account}#{entity.pwd}#{entity.email}#{entity.phone}#{entity.gender}#{entity.status}#{entity.isDel}#{entity.loginIp}#{entity.loginTime}#{entity.cTime}#{entity.creater}#{entity.lastUpdTime}#{entity.lastUpdUser}#{entity.remark})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into twdb.customer_user(customer_idnick_nametypeaccountpwdemailphonegenderstatusis_dellogin_iplogin_timec_timecreaterlast_upd_timelast_upd_userremark)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.customerId}#{entity.nickName}#{entity.type}#{entity.account}#{entity.pwd}#{entity.email}#{entity.phone}#{entity.gender}#{entity.status}#{entity.isDel}#{entity.loginIp}#{entity.loginTime}#{entity.cTime}#{entity.creater}#{entity.lastUpdTime}#{entity.lastUpdUser}#{entity.remark})
+        </foreach>
+        on duplicate key update
+customer_id = values(customer_id) nick_name = values(nick_name) type = values(type) account = values(account) pwd = values(pwd) email = values(email) phone = values(phone) gender = values(gender) status = values(status) is_del = values(is_del) login_ip = values(login_ip) login_time = values(login_time) c_time = values(c_time) creater = values(creater) last_upd_time = values(last_upd_time) last_upd_user = values(last_upd_user) remark = values(remark)     </insert>
+
+</mapper>
+

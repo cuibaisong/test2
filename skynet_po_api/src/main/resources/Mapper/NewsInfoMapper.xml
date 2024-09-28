@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skynet.skynet_po_api.job.dao.NewsInfoMapper">
+
+    <resultMap type="com.skynet.skynet_po_api.job.model.NewsInfo" id="NewsInfoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="platformName" column="platform_name" jdbcType="VARCHAR"/>
+        <result property="platformType" column="platform_type" jdbcType="VARCHAR"/>
+        <result property="platformDomainFir" column="platform_domain_fir" jdbcType="VARCHAR"/>
+        <result property="platformDomainSec" column="platform_domain_sec" jdbcType="VARCHAR"/>
+        <result property="mediaName" column="media_name" jdbcType="VARCHAR"/>
+        <result property="mediaId" column="media_id" jdbcType="INTEGER"/>
+        <result property="mediaType" column="media_type" jdbcType="VARCHAR"/>
+        <result property="mediaUuid" column="media_uuid" jdbcType="VARCHAR"/>
+        <result property="mediaPicurl" column="media_picurl" jdbcType="VARCHAR"/>
+        <result property="mediaProvince" column="media_province" jdbcType="VARCHAR"/>
+        <result property="mediaCity" column="media_city" jdbcType="VARCHAR"/>
+        <result property="newsUuid" column="news_uuid" jdbcType="VARCHAR"/>
+        <result property="newsTitle" column="news_title" jdbcType="VARCHAR"/>
+        <result property="newsAbstract" column="news_abstract" jdbcType="VARCHAR"/>
+        <result property="newsUrl" column="news_url" jdbcType="VARCHAR"/>
+        <result property="newsContent" column="news_content" jdbcType="VARCHAR"/>
+        <result property="newsEmotion" column="news_emotion" jdbcType="VARCHAR"/>
+        <result property="newsPostTime" column="news_post_time" jdbcType="TIMESTAMP"/>
+        <result property="newsStorageTime" column="news_storage_time" jdbcType="TIMESTAMP"/>
+        <result property="newsAuthor" column="news_author" jdbcType="VARCHAR"/>
+        <result property="newsContentArea" column="news_content_area" jdbcType="VARCHAR"/>
+        <result property="newsContentField" column="news_content_field" jdbcType="VARCHAR"/>
+        <result property="newsIsOriginal" column="news_is_original" jdbcType="INTEGER"/>
+        <result property="newsOriginUrl" column="news_origin_url" jdbcType="VARCHAR"/>
+        <result property="newsOriginAuthorName" column="news_origin_author_name" jdbcType="VARCHAR"/>
+        <result property="newsKeywordsList" column="news_keywords_list" jdbcType="VARCHAR"/>
+        <result property="newsImgUrls" column="news_img_urls" jdbcType="VARCHAR"/>
+        <result property="newsVideoUrls" column="news_video_urls" jdbcType="VARCHAR"/>
+        <result property="newsReadVol" column="news_read_vol" jdbcType="INTEGER"/>
+        <result property="newsCommentVol" column="news_comment_vol" jdbcType="INTEGER"/>
+        <result property="newsLikesVol" column="news_likes_vol" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into twdb.news_info(platform_nameplatform_typeplatform_domain_firplatform_domain_secmedia_namemedia_idmedia_typemedia_uuidmedia_picurlmedia_provincemedia_citynews_uuidnews_titlenews_abstractnews_urlnews_contentnews_emotionnews_post_timenews_storage_timenews_authornews_content_areanews_content_fieldnews_is_originalnews_origin_urlnews_origin_author_namenews_keywords_listnews_img_urlsnews_video_urlsnews_read_volnews_comment_volnews_likes_vol)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.platformName}#{entity.platformType}#{entity.platformDomainFir}#{entity.platformDomainSec}#{entity.mediaName}#{entity.mediaId}#{entity.mediaType}#{entity.mediaUuid}#{entity.mediaPicurl}#{entity.mediaProvince}#{entity.mediaCity}#{entity.newsUuid}#{entity.newsTitle}#{entity.newsAbstract}#{entity.newsUrl}#{entity.newsContent}#{entity.newsEmotion}#{entity.newsPostTime}#{entity.newsStorageTime}#{entity.newsAuthor}#{entity.newsContentArea}#{entity.newsContentField}#{entity.newsIsOriginal}#{entity.newsOriginUrl}#{entity.newsOriginAuthorName}#{entity.newsKeywordsList}#{entity.newsImgUrls}#{entity.newsVideoUrls}#{entity.newsReadVol}#{entity.newsCommentVol}#{entity.newsLikesVol})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into twdb.news_info(platform_nameplatform_typeplatform_domain_firplatform_domain_secmedia_namemedia_idmedia_typemedia_uuidmedia_picurlmedia_provincemedia_citynews_uuidnews_titlenews_abstractnews_urlnews_contentnews_emotionnews_post_timenews_storage_timenews_authornews_content_areanews_content_fieldnews_is_originalnews_origin_urlnews_origin_author_namenews_keywords_listnews_img_urlsnews_video_urlsnews_read_volnews_comment_volnews_likes_vol)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.platformName}#{entity.platformType}#{entity.platformDomainFir}#{entity.platformDomainSec}#{entity.mediaName}#{entity.mediaId}#{entity.mediaType}#{entity.mediaUuid}#{entity.mediaPicurl}#{entity.mediaProvince}#{entity.mediaCity}#{entity.newsUuid}#{entity.newsTitle}#{entity.newsAbstract}#{entity.newsUrl}#{entity.newsContent}#{entity.newsEmotion}#{entity.newsPostTime}#{entity.newsStorageTime}#{entity.newsAuthor}#{entity.newsContentArea}#{entity.newsContentField}#{entity.newsIsOriginal}#{entity.newsOriginUrl}#{entity.newsOriginAuthorName}#{entity.newsKeywordsList}#{entity.newsImgUrls}#{entity.newsVideoUrls}#{entity.newsReadVol}#{entity.newsCommentVol}#{entity.newsLikesVol})
+        </foreach>
+        on duplicate key update
+platform_name = values(platform_name) platform_type = values(platform_type) platform_domain_fir = values(platform_domain_fir) platform_domain_sec = values(platform_domain_sec) media_name = values(media_name) media_id = values(media_id) media_type = values(media_type) media_uuid = values(media_uuid) media_picurl = values(media_picurl) media_province = values(media_province) media_city = values(media_city) news_uuid = values(news_uuid) news_title = values(news_title) news_abstract = values(news_abstract) news_url = values(news_url) news_content = values(news_content) news_emotion = values(news_emotion) news_post_time = values(news_post_time) news_storage_time = values(news_storage_time) news_author = values(news_author) news_content_area = values(news_content_area) news_content_field = values(news_content_field) news_is_original = values(news_is_original) news_origin_url = values(news_origin_url) news_origin_author_name = values(news_origin_author_name) news_keywords_list = values(news_keywords_list) news_img_urls = values(news_img_urls) news_video_urls = values(news_video_urls) news_read_vol = values(news_read_vol) news_comment_vol = values(news_comment_vol) news_likes_vol = values(news_likes_vol)     </insert>
+
+</mapper>
+

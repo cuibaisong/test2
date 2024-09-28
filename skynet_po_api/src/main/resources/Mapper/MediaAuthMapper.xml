@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skynet.skynet_po_api.job.dao.MediaAuthMapper">
+
+    <resultMap type="com.skynet.skynet_po_api.job.model.MediaAuth" id="MediaAuthMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="type" column="Type" jdbcType="VARCHAR"/>
+        <result property="mediaPlatform" column="media_platform" jdbcType="VARCHAR"/>
+        <result property="realName" column="real_name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="isDel" column="is_del" jdbcType="INTEGER"/>
+        <result property="cTime" column="c_time" jdbcType="TIMESTAMP"/>
+        <result property="createrId" column="creater_id" jdbcType="INTEGER"/>
+        <result property="lastUpdTime" column="last_upd_time" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdUser" column="last_upd_user" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into twdb.media_auth(nameTypemedia_platformreal_namestatusis_delc_timecreaterlast_upd_timelast_upd_user)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.name}#{entity.type}#{entity.mediaPlatform}#{entity.realName}#{entity.status}#{entity.isDel}#{entity.cTime}#{entity.creater}#{entity.lastUpdTime}#{entity.lastUpdUser})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into twdb.media_auth(nameTypemedia_platformreal_namestatusis_delc_timecreaterlast_upd_timelast_upd_user)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}#{entity.type}#{entity.mediaPlatform}#{entity.realName}#{entity.status}#{entity.isDel}#{entity.cTime}#{entity.creater}#{entity.lastUpdTime}#{entity.lastUpdUser})
+        </foreach>
+        on duplicate key update
+name = values(name) Type = values(Type) media_platform = values(media_platform) real_name = values(real_name) status = values(status) is_del = values(is_del) c_time = values(c_time) creater = values(creater) last_upd_time = values(last_upd_time) last_upd_user = values(last_upd_user)     </insert>
+
+</mapper>
+

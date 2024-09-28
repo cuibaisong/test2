@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skynet.skynet_po_api.job.dao.CustomerMapper">
+
+    <resultMap type="com.skynet.skynet_po_api.job.model.Customer" id="CustomerMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="contactsName" column="contacts_name" jdbcType="VARCHAR"/>
+        <result property="contactsPhone" column="contacts_phone" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="isMediaLibrary" column="is_media_library" jdbcType="INTEGER"/>
+        <result property="authTime" column="auth_time" jdbcType="TIMESTAMP"/>
+        <result property="maxAdminNum" column="max_admin_num" jdbcType="INTEGER"/>
+        <result property="maxSubNum" column="max_sub_num" jdbcType="INTEGER"/>
+        <result property="cTime" column="c_time" jdbcType="TIMESTAMP"/>
+        <result property="createrId" column="creater_id" jdbcType="INTEGER"/>
+        <result property="lastUpdTime" column="last_upd_time" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdUser" column="last_upd_user" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into twdb.customer(nametypeemailcontacts_namecontacts_phonestatusis_media_libraryauth_timemax_admin_nummax_sub_numc_timecreater_idlast_upd_timelast_upd_userremark)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.name}#{entity.type}#{entity.email}#{entity.contactsName}#{entity.contactsPhone}#{entity.status}#{entity.isMediaLibrary}#{entity.authTime}#{entity.maxAdminNum}#{entity.maxSubNum}#{entity.cTime}#{entity.createrId}#{entity.lastUpdTime}#{entity.lastUpdUser}#{entity.remark})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into twdb.customer(nametypeemailcontacts_namecontacts_phonestatusis_media_libraryauth_timemax_admin_nummax_sub_numc_timecreater_idlast_upd_timelast_upd_userremark)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}#{entity.type}#{entity.email}#{entity.contactsName}#{entity.contactsPhone}#{entity.status}#{entity.isMediaLibrary}#{entity.authTime}#{entity.maxAdminNum}#{entity.maxSubNum}#{entity.cTime}#{entity.createrId}#{entity.lastUpdTime}#{entity.lastUpdUser}#{entity.remark})
+        </foreach>
+        on duplicate key update
+name = values(name) type = values(type) email = values(email) contacts_name = values(contacts_name) contacts_phone = values(contacts_phone) status = values(status) is_media_library = values(is_media_library) auth_time = values(auth_time) max_admin_num = values(max_admin_num) max_sub_num = values(max_sub_num) c_time = values(c_time) creater_id = values(creater_id) last_upd_time = values(last_upd_time) last_upd_user = values(last_upd_user) remark = values(remark)     </insert>
+
+</mapper>
+

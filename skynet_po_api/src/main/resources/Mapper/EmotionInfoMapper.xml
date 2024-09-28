@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skynet.skynet_po_api.job.dao.EmotionInfoMapper">
+
+    <resultMap type="com.skynet.skynet_po_api.job.model.EmotionInfo" id="EmotionInfoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="keyWords" column="key_words" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="isDel" column="is_del" jdbcType="INTEGER"/>
+        <result property="cTime" column="c_time" jdbcType="TIMESTAMP"/>
+        <result property="createrId" column="creater_id" jdbcType="INTEGER"/>
+        <result property="lastUpdTime" column="last_upd_time" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdUser" column="last_upd_user" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into twdb.emotion_info(namekey_wordsstatusis_delc_timecreaterlast_upd_timelast_upd_user)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.name}#{entity.keyWords}#{entity.status}#{entity.isDel}#{entity.cTime}#{entity.creater}#{entity.lastUpdTime}#{entity.lastUpdUser})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into twdb.emotion_info(namekey_wordsstatusis_delc_timecreaterlast_upd_timelast_upd_user)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}#{entity.keyWords}#{entity.status}#{entity.isDel}#{entity.cTime}#{entity.creater}#{entity.lastUpdTime}#{entity.lastUpdUser})
+        </foreach>
+        on duplicate key update
+name = values(name) key_words = values(key_words) status = values(status) is_del = values(is_del) c_time = values(c_time) creater = values(creater) last_upd_time = values(last_upd_time) last_upd_user = values(last_upd_user)     </insert>
+
+</mapper>
+
